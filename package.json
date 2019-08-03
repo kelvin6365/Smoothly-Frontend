@@ -25,9 +25,8 @@
 		"eject": "react-scripts eject"
 	},
 	"jest": {
-		"snapshotSerializers": [
-			"enzyme-to-json/serializer"
-		],
+		"snapshotSerializers": [ "enzyme-to-json/serializer" ],
+		"setupFilesAfterEnv": [ "<rootDir>/src/setupTests.js" ],
 		"moduleNameMapper": {
 			"^.+\\.(css|scss|svg|png|jpg)$": "identity-obj-proxy"
 		}
@@ -36,16 +35,8 @@
 		"extends": "react-app"
 	},
 	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
+		"production": [ ">0.2%", "not dead", "not op_mini all" ],
+		"development": [ "last 1 chrome version", "last 1 firefox version", "last 1 safari version" ]
 	},
 	"devDependencies": {
 		"@babel/core": "^7.5.5",
