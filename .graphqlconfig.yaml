@@ -1,0 +1,6 @@
+projects:
+  iteach2.0:
+    schemaPath: schema.graphql
+    extensions:
+      endpoints:
+        dev: 'http://localhost:8000/graphql'

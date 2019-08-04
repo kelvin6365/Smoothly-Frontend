@@ -1,0 +1,321 @@
+# source: http://localhost:8000/graphql
+# timestamp: Sun Aug 04 2019 22:35:57 GMT+0800 (GMT+08:00)
+
+type AuthPayload {
+  access_token: String!
+  refresh_token: String!
+  expires_in: Int!
+  token_type: String!
+  user: User!
+}
+
+input CreateTeamInput {
+  name: String
+  in_charge_user_id: ID
+}
+
+input CreateUserInput {
+  name: String
+  username: String
+  user_type: String
+  password: String
+  email: String
+}
+
+"""A date string with format `Y-m-d`, e.g. `2011-05-23`."""
+scalar Date
+
+"""
+A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`.
+"""
+scalar DateTime
+
+input ForgotPasswordInput {
+  email: String!
+}
+
+type ForgotPasswordResponse {
+  status: String!
+  message: String
+}
+
+type Jobboard {
+  id: ID!
+  name: String!
+  description: String!
+  teams: [TeamJobboard!]!
+  active: String!
+  sprints: [Sprint!]!
+}
+
+type JobboardPaginator {
+  paginatorInfo: PaginatorInfo!
+  data: [Jobboard!]!
+}
+
+input LoginInput {
+  username: String!
+  password: String!
+}
+
+type LogoutResponse {
+  status: String!
+  message: String
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User
+  createTeam(createTeamInput: CreateTeamInput!): Team
+  login(data: LoginInput): AuthPayload!
+  refreshToken(data: RefreshTokenInput): AuthPayload!
+  logout: LogoutResponse!
+  forgotPassword(data: ForgotPasswordInput!): ForgotPasswordResponse!
+  updateForgottenPassword(data: NewPasswordWithCodeInput): ForgotPasswordResponse!
+}
+
+input NewPasswordWithCodeInput {
+  email: String!
+  token: String!
+  password: String!
+  password_confirmation: String!
+}
+
+input OrderByClause {
+  field: String!
+  order: SortOrder!
+}
+
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """Total number of node in connection."""
+  total: Int
+
+  """Count of nodes in current request."""
+  count: Int
+
+  """Current page of request."""
+  currentPage: Int
+
+  """Last page in connection."""
+  lastPage: Int
+}
+
+type PaginatorInfo {
+  """Total count of available items in the page."""
+  count: Int!
+
+  """Current pagination page."""
+  currentPage: Int!
+
+  """Index of first item in the current page."""
+  firstItem: Int
+
+  """If collection has more pages."""
+  hasMorePages: Boolean!
+
+  """Index of last item in the current page."""
+  lastItem: Int
+
+  """Last page number of the collection."""
+  lastPage: Int!
+
+  """Number of items per page in the collection."""
+  perPage: Int!
+
+  """Total items available in the collection."""
+  total: Int!
+}
+
+type Permission {
+  id: ID!
+  permission_type: String!
+}
+
+type Query {
+  users(
+    """Limits number of fetched elements."""
+    count: Int!
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): UserPaginator
+  user(id: ID): User
+  allTeams(
+    """Limits number of fetched elements."""
+    count: Int!
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): TeamPaginator
+  allJobboards(
+    """Limits number of fetched elements."""
+    count: Int!
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): JobboardPaginator
+  UserPermission(user_id: ID): UserPermission
+  team(id: ID): Team
+  sprint(id: ID): Sprint
+}
+
+input RefreshTokenInput {
+  refresh_token: String
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+type Sprint {
+  id: ID!
+  jobboard: Jobboard
+  name: String!
+  sprintType: SprintType!
+  startDate: DateTime
+  endDate: DateTime
+  tasks(
+    """Limits number of fetched elements."""
+    count: Int!
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): TaskPaginator
+}
+
+type SprintType {
+  id: ID!
+  name: String!
+}
+
+type Task {
+  id: ID!
+  name: String!
+  description: String!
+  hold_by: ID!
+  taskHoldByUserInfo: User!
+  handle_by: ID!
+  taskHandleByUserInfo: User!
+  startDate: DateTime
+  endDate: DateTime
+  taskType: TaskType!
+  taskState: TaskState!
+  taskTag: TaskTag!
+  taskOrderType: TaskOrderType!
+  belongsToSprint: Sprint!
+}
+
+type TaskOrderType {
+  id: ID!
+  name: String!
+}
+
+type TaskPaginator {
+  paginatorInfo: PaginatorInfo!
+  data: [Task!]!
+}
+
+type TaskState {
+  id: ID!
+  name: String!
+}
+
+type TaskTag {
+  id: ID!
+  name: String!
+}
+
+type TaskType {
+  id: ID!
+  name: String!
+}
+
+type Team {
+  id: ID!
+  name: String!
+  in_charge_user_id: ID!
+  in_charge_user: User
+  TeamUsers: [TeamUser!]!
+  TeamJobboards: [TeamJobboard!]!
+}
+
+type TeamJobboard {
+  id: ID!
+  jobboard_id: ID!
+  belongsToJobboard: Jobboard
+  team_id: ID!
+  TeamDetail: Team
+}
+
+type TeamPaginator {
+  paginatorInfo: PaginatorInfo!
+  data: [Team!]!
+}
+
+type TeamUser {
+  id: ID!
+  user_id: ID!
+  User: User
+  team_id: ID!
+  Team: Team
+}
+
+type User {
+  id: ID!
+  name: String!
+  username: String!
+  user_type: String!
+  UserPermissions(
+    """Limits number of fetched elements."""
+    count: Int!
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): UserPermissionPaginator
+  email: String!
+  userDetail: UserDetail
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type UserDetail {
+  id: ID!
+  user_id: ID!
+  team_id: ID!
+  belongsToTeam: Team
+  job_title: String!
+  location: String!
+}
+
+type UserPaginator {
+  paginatorInfo: PaginatorInfo!
+  data: [User!]!
+}
+
+type UserPermission {
+  id: ID!
+  permission_id: ID!
+  jobboard_id: ID!
+  user_id: ID!
+  user: User
+  permission: Permission
+  jobboard: Jobboard
+  created_at: DateTime!
+}
+
+type UserPermissionPaginator {
+  paginatorInfo: PaginatorInfo!
+  data: [UserPermission!]!
+}

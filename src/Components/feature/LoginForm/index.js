@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Grid } from 'semantic-ui-react';
+import { Form, Grid, Message } from 'semantic-ui-react';
+import LoginMutation from '../LoginMutation/index';
 import './index.scss';
 
 class index extends Component {
@@ -9,7 +10,9 @@ class index extends Component {
 			username: '',
 			password: '',
 			usernameError: false,
-			passwordError: false
+			passwordError: false,
+			loginLoading: false,
+			incorrectUser: false
 		};
 	}
 
@@ -30,19 +33,42 @@ class index extends Component {
 		//check username and password not null or empty
 
 		if (username.length != 0 && password.length != 0) {
+			this.setState({
+				loginLoading: true,
+				incorrectUser: false
+			});
 			//pass login query
-
-			var success = true;
-			if (success) {
-				//success
-				localStorage.setItem('_token', '1');
-				this.props.login();
-				this.props.history.push('/');
-			} else {
-				//Fail
-				//server error?
-				//account not match??
-			}
+			const loginData = {
+				username: username,
+				password: password
+			};
+			const result = (response, error) => {
+				console.log(response, error);
+				var success = !error && response != null ? true : false;
+				if (success) {
+					//success
+					localStorage.setItem('_token', response.login.access_token);
+					localStorage.setItem('_retoken', response.login.refresh_token);
+					this.props.login();
+					this.props.history.push('/');
+				} else {
+					//Fail
+					//server error?
+					//account not match??
+					var incorrectUser =
+						error.source.errors[0].message.indexOf('The user credentials were incorrect.') != -1
+							? true
+							: false;
+					if (incorrectUser) {
+						console.log('Error: incorrect User');
+					}
+					this.setState({
+						loginLoading: false,
+						incorrectUser: incorrectUser
+					});
+				}
+			};
+			LoginMutation(loginData, result);
 		} else {
 			var usernameVal = username.length != 0 ? false : true;
 			var passwordVal = password.length != 0 ? false : true;
@@ -53,7 +79,7 @@ class index extends Component {
 		}
 	};
 	render() {
-		const { username, password, usernameError, passwordError } = this.state;
+		const { username, password, usernameError, passwordError, loginLoading, incorrectUser } = this.state;
 		return (
 			<div style={{ maxWidth: '650px' }} className="column login_form">
 				<Grid>
@@ -70,6 +96,7 @@ class index extends Component {
 										name="username"
 										value={username}
 										onChange={this.handleChange}
+										disabled={loginLoading}
 									/>
 									<Form.Input
 										error={passwordError}
@@ -77,8 +104,12 @@ class index extends Component {
 										name="password"
 										value={password}
 										onChange={this.handleChange}
+										disabled={loginLoading}
 									/>
-									<Form.Button content="Submit" />
+									{incorrectUser && (
+										<Message negative content="Sorry, there is no match user, Please try again." />
+									)}
+									<Form.Button content="Submit" loading={loginLoading} />
 								</div>
 							</Form>
 						</Grid.Column>

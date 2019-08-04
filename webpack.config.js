@@ -93,6 +93,13 @@ module.exports = {
 		host: 'localhost',
 		port: port,
 		historyApiFallback: true,
-		open: true
+		open: true,
+		proxy: {
+			'/api': {
+				target: 'http://localhost:8000/graphql',
+				pathRewrite: { '^/api': '' },
+				secure: false
+			}
+		}
 	}
 };
