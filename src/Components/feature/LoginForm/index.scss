@@ -1,0 +1,39 @@
+.login_form {
+	min-height: 450px;
+	.ui.grid .computer.only.tablet.only.column.row {
+		padding: 0;
+		-webkit-box-shadow: 6px 2px 15px -6px rgba(0, 0, 0, 0.4);
+		-moz-box-shadow: 6px 2px 15px -6px rgba(0, 0, 0, 0.4);
+		box-shadow: 6px 2px 15px -6px rgba(0, 0, 0, 0.4);
+		border-radius: 40px;
+		.column {
+			&:first-child {
+				background-image: url("../../../assets/images/bg/login_bg.svg");
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: 87%;
+				background-position-x: 0px;
+				border-top-left-radius: 10px;
+				border-bottom-left-radius: 10px;
+				padding-right: 0px;
+			}
+			&:last-child {
+				padding-left: 0px;
+				padding-right: 42px;
+			}
+			min-height: 420px;
+			.login_left_box {
+				padding: 20px 42px 20px 0px;
+				height: 100%;
+			}
+			.ui.form {
+				padding: 20px 0;
+				height: 100%;
+				.login_right_box {
+					padding: 20px;
+					height: 100%;
+				}
+			}
+		}
+	}
+}

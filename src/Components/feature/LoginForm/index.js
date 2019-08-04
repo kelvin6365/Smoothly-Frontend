@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Grid } from 'semantic-ui-react';
+import './index.scss';
 
 class index extends Component {
 	constructor(props) {
@@ -54,16 +55,15 @@ class index extends Component {
 	render() {
 		const { username, password, usernameError, passwordError } = this.state;
 		return (
-			<div style={{ maxWidth: '650px' }} className="column">
-				Login form
+			<div style={{ maxWidth: '650px' }} className="column login_form">
 				<Grid>
 					<Grid.Row columns={2} only="computer tablet">
 						<Grid.Column>
-							<div>123</div>
+							<div className="login_left_box">123</div>
 						</Grid.Column>
 						<Grid.Column>
 							<Form onSubmit={this.handleSubmit}>
-								<div>
+								<div className="login_right_box">
 									<Form.Input
 										error={usernameError}
 										placeholder="UserName"
