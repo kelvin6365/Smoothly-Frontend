@@ -1,6 +1,3 @@
-.ui.negative.message {
-	padding: 0.6em;
-	.content {
-		text-align: left;
-	}
-}
+@import './feature/basic.scss';
+@import './feature/button.scss';
+@import './feature/error.scss';

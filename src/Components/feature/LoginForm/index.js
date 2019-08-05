@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Form, Grid, Message } from 'semantic-ui-react';
+import { Form, Grid, Message, Input, Header, Checkbox } from 'semantic-ui-react';
 import LoginMutation from '../LoginMutation/index';
+import Logo from '../../../assets/images/Logo.svg';
 import './index.scss';
 
 class index extends Component {
@@ -9,6 +10,7 @@ class index extends Component {
 		this.state = {
 			username: '',
 			password: '',
+			remember_me: '',
 			usernameError: false,
 			passwordError: false,
 			loginLoading: false,
@@ -16,13 +18,15 @@ class index extends Component {
 		};
 	}
 
-	handleChange = (e, { name, value }) => {
+	handleChange = (e, { name, value, checked }) => {
 		var usernameLength = name == 'username' ? value.length : this.state.username.length;
 		var passwordLength = name == 'password' ? value.length : this.state.password.length;
+		console.log(checked, name, value);
 		this.setState({
-			[name]: value,
-			usernameError: usernameLength != 0 ? false : true,
-			passwordError: passwordLength != 0 ? false : true
+			[name]: name == 'remember_me' ? checked : value,
+			usernameError: usernameLength == 0 ? true : false,
+			passwordError: passwordLength == 0 ? true : false,
+			incorrectUser: false
 		});
 	};
 
@@ -79,18 +83,35 @@ class index extends Component {
 		}
 	};
 	render() {
-		const { username, password, usernameError, passwordError, loginLoading, incorrectUser } = this.state;
+		const {
+			username,
+			password,
+			remember_me,
+			usernameError,
+			passwordError,
+			loginLoading,
+			incorrectUser
+		} = this.state;
 		return (
 			<div style={{ maxWidth: '650px' }} className="column login_form">
 				<Grid>
 					<Grid.Row columns={2} only="computer tablet">
 						<Grid.Column>
-							<div className="login_left_box">123</div>
+							<div className="login_left_box">
+								<img src={Logo} />
+								<Header as="h2">
+									Smoothly
+									<Header.Subheader>Make Your Job Easier</Header.Subheader>
+								</Header>
+							</div>
 						</Grid.Column>
 						<Grid.Column>
 							<Form onSubmit={this.handleSubmit}>
 								<div className="login_right_box">
-									<Form.Input
+									<Header as="h1">User Login</Header>
+									<Input
+										icon="user"
+										iconPosition="left"
 										error={usernameError}
 										placeholder="UserName"
 										name="username"
@@ -98,7 +119,9 @@ class index extends Component {
 										onChange={this.handleChange}
 										disabled={loginLoading}
 									/>
-									<Form.Input
+									<Input
+										icon="lock"
+										iconPosition="left"
 										error={passwordError}
 										placeholder="Password"
 										name="password"
@@ -106,10 +129,17 @@ class index extends Component {
 										onChange={this.handleChange}
 										disabled={loginLoading}
 									/>
+									<Form.Field>
+										<Checkbox
+											label={{ children: 'Remember me?' }}
+											name="remember_me"
+											onChange={this.handleChange}
+										/>
+									</Form.Field>
 									{incorrectUser && (
 										<Message negative content="Sorry, there is no match user, Please try again." />
 									)}
-									<Form.Button content="Submit" loading={loginLoading} />
+									<Form.Button content="Login" primary loading={loginLoading} />
 								</div>
 							</Form>
 						</Grid.Column>
