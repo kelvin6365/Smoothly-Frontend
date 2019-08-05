@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import './App.css';
 import LoginPage from './Components/view/LoginPage';
+import Dashboard from './Components/view/Dashboard';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 class App extends Component {
@@ -31,23 +32,21 @@ class App extends Component {
 		return (
 			<Suspense fallback={<div>Loading</div>}>
 				<div className="App">
-					<Switch>
-						{auth ? (
-							<React.Fragment>
-								<Route exact path="/" render={(props) => <div>Dashboard</div>} />
-								<Redirect to="/" />
-							</React.Fragment>
-						) : (
-							<React.Fragment>
-								<Redirect from="/" to="/login" />
-								<Route
-									exact
-									path="/login"
-									render={(props) => <LoginPage {...props} login={this.login} />}
-								/>
-							</React.Fragment>
-						)}
-					</Switch>
+					{auth ? (
+						<Switch>
+							<Route path="/" render={(props) => <Dashboard {...props} />} />
+							<Redirect to="/" />
+						</Switch>
+					) : (
+						<Switch>
+							<Redirect from="/" to="/login" />
+							<Route
+								exact
+								path="/login"
+								render={(props) => <LoginPage {...props} login={this.login} />}
+							/>
+						</Switch>
+					)}
 				</div>
 			</Suspense>
 		);

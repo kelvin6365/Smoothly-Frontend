@@ -4,7 +4,7 @@ import { Router } from 'react-router-dom';
 import history from './history';
 import 'semantic-ui-css/semantic.min.css';
 import './assets/style/main.scss';
-import './index.css';
+import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
