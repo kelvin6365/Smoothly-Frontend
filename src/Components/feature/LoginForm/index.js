@@ -94,7 +94,7 @@ class index extends Component {
 		} = this.state;
 		return (
 			<div style={{ maxWidth: '650px' }} className="column login_form">
-				<Grid>
+				<Grid className="computer only tablet only">
 					<Grid.Row columns={2} only="computer tablet">
 						<Grid.Column>
 							<div className="login_left_box">
@@ -121,6 +121,7 @@ class index extends Component {
 									/>
 									<Input
 										icon="lock"
+										type="password"
 										iconPosition="left"
 										error={passwordError}
 										placeholder="Password"
@@ -144,12 +145,62 @@ class index extends Component {
 							</Form>
 						</Grid.Column>
 					</Grid.Row>
-					<Grid.Row columns={1} only="mobile">
-						<Grid.Column>Mobile</Grid.Column>
-					</Grid.Row>
-					<Grid.Row columns={1} only="mobile">
-						<Grid.Column>Mobile</Grid.Column>
-					</Grid.Row>
+				</Grid>
+				<Grid className="mobile only">
+					<div className="bg">
+						<Grid.Row columns={1} only="mobile">
+							<Grid.Column>
+								<div className="login_left_box">
+									<img src={Logo} />
+									<Header as="h2">Smoothly</Header>
+								</div>
+							</Grid.Column>
+						</Grid.Row>
+						<Grid.Row columns={1} only="mobile">
+							<Grid.Column>
+								<Form onSubmit={this.handleSubmit}>
+									<div className="login_right_box">
+										<Header as="h1">User Login</Header>
+										<Input
+											icon="user"
+											iconPosition="left"
+											error={usernameError}
+											placeholder="UserName"
+											name="username"
+											value={username}
+											onChange={this.handleChange}
+											disabled={loginLoading}
+										/>
+										<Input
+											icon="lock"
+											type="password"
+											iconPosition="left"
+											error={passwordError}
+											placeholder="Password"
+											name="password"
+											value={password}
+											onChange={this.handleChange}
+											disabled={loginLoading}
+										/>
+										<Form.Field>
+											<Checkbox
+												label={{ children: 'Remember me?' }}
+												name="remember_me"
+												onChange={this.handleChange}
+											/>
+										</Form.Field>
+										{incorrectUser && (
+											<Message
+												negative
+												content="Sorry, there is no match user, Please try again."
+											/>
+										)}
+										<Form.Button content="Login" primary loading={loginLoading} />
+									</div>
+								</Form>
+							</Grid.Column>
+						</Grid.Row>
+					</div>
 				</Grid>
 			</div>
 		);
