@@ -12,7 +12,7 @@ class index extends Component {
 		const { activeItem } = this.state;
 		return (
 			<div className="dashboard">
-				<Menu pointing secondary vertical>
+				<Menu pointing secondary vertical className="animated slideInLeft">
 					<div className="header animated fadeInDown slow">
 						<img src={Logo} />
 						<div className="title">Smoothly</div>
@@ -29,7 +29,7 @@ class index extends Component {
 					</NavLink>
 				</Menu>
 				<div className="body">
-					<div className="content">
+					<div className="content animated fadeInLeft">
 						<Switch>
 							<Route exact path="/dashboard" render={(props) => <div>123</div>} />
 							<Route exact path="/pag2" render={(props) => <div>321</div>} />
