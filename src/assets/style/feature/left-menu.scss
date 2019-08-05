@@ -1,0 +1,19 @@
+.ui.secondary.vertical.pointing.menu {
+	.item {
+		border-left-style: solid;
+		border-left-color: transparent;
+		color: rgba(0, 0, 0, .6);
+		i.icon {
+			width: 1.18em;
+			float: left;
+			margin: 0 .5em 0 0;
+			font-size: 14px;
+		}
+	}
+	.active.item {
+		border-color: #1b1c1d;
+		background-color: rgba(0, 0, 0, 0.05);
+		color: rgba(0, 0, 0, 1);
+		border-left-width: 2px;
+	}
+}
