@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Menu, Icon } from 'semantic-ui-react';
 import { NavLink, Switch, Route, Redirect } from 'react-router-dom';
-import Logo from '../../../assets/images/logo.svg';
+
 import './index.scss';
 class index extends Component {
 	constructor(props) {
@@ -14,7 +14,7 @@ class index extends Component {
 			<div className="dashboard">
 				<Menu pointing secondary vertical className="animated slideInLeft">
 					<div className="header animated fadeInDown slow">
-						<img src={Logo} />
+						<img src={'./assets/images/logo.svg'} />
 						<div className="title">Smoothly</div>
 					</div>
 					<NavLink className="item animated fadeInDown slow" to="/dashboard">

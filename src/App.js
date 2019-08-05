@@ -39,12 +39,12 @@ class App extends Component {
 						</Switch>
 					) : (
 						<Switch>
-							<Redirect from="/" to="/login" />
 							<Route
 								exact
 								path="/login"
 								render={(props) => <LoginPage {...props} login={this.login} />}
 							/>
+							<Redirect from="/" to="/login" />
 						</Switch>
 					)}
 				</div>
