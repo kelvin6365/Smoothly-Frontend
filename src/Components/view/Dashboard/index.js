@@ -1,33 +1,25 @@
 import React, { Component } from 'react';
-import { Menu, Icon } from 'semantic-ui-react';
-import { NavLink, Switch, Route, Redirect } from 'react-router-dom';
+import LeftMenu from '../../feature/LeftMenu';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import './index.scss';
 class index extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { activeItem: 'home' };
+		this.state = { activeItem: 'home', leftMenuOpen: true };
 	}
+
+	openLeftMenu = () => {
+		this.setState({
+			leftMenuOpen: !this.state.leftMenuOpen
+		});
+	};
+
 	render() {
-		const { activeItem } = this.state;
+		const { activeItem, leftMenuOpen } = this.state;
 		return (
 			<div className="dashboard">
-				<Menu pointing secondary vertical className="animated slideInLeft">
-					<div className="header animated fadeInDown slow">
-						<img src={'./assets/images/logo.svg'} />
-						<div className="title">Smoothly</div>
-					</div>
-					<NavLink className="item animated fadeInDown slow" to="/dashboard">
-						<Icon name="user" />Dashboard
-					</NavLink>
-					<NavLink className="item animated fadeInDown slow" to="/pag2">
-						<Icon name="lock" />Pag2
-					</NavLink>
-
-					<NavLink className="item animated fadeInDown slow" to="/pag3">
-						<Icon name="lock" />Pag3
-					</NavLink>
-				</Menu>
+				<LeftMenu {...this.props} leftMenuOpen={leftMenuOpen} openLeftMenu={this.openLeftMenu} />
 				<div className="body">
 					<div className="content animated fadeInLeft">
 						<Switch>

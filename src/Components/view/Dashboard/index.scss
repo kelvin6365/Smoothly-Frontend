@@ -2,24 +2,72 @@
 	display: flex;
 	height: 100%;
 	.ui.pointing.secondary.vertical.menu {
+		animation: openMenu 0.6s 1 0s ease-in-out;
 		height: 100%;
 		position: fixed;
 		z-index: 1;
 		top: 0;
 		left: 0;
-		width: 12rem;
+		max-width: 12rem;
+		width: 100%;
 		.header {
 			display: flex;
 			padding: 10px;
 			img {
-				width: 40px;
+				width: 34px;
 			}
 			.title {
+				//animation: openMenu 1s 1 0s ease-in-out;
 				padding-left: 5px;
 				font-size: 18px;
 				font-weight: 400;
 				height: 19px;
 				margin: auto 0;
+			}
+		}
+		a.item {
+			height: 40px;
+			display: flex;
+			//animation: 0.6s 1 0s ease-in-out;
+			.icon {
+				margin: 1px;
+			}
+			span {
+				margin-left: 5px;
+				line-height: 15px;
+			}
+			&.active {
+				.icon {
+					margin-left: 2px;
+				}
+				span {
+				}
+			}
+		}
+		&.close {
+			width: 4rem;
+			.header {
+				img {
+					width: 100%;
+				}
+				.title {
+					display: none;
+				}
+			}
+			a.item {
+				margin: 0px -2px 0px 0px;
+				.icon {
+					float: none;
+					margin: 1px;
+				}
+				span {
+					display: none;
+				}
+				&.active {
+					.icon {
+						margin-left: 2px;
+					}
+				}
 			}
 		}
 	}
@@ -29,5 +77,18 @@
 		.content {
 			width: 100%;
 		}
+	}
+}
+
+@keyframes openMenu {
+	0% {
+		transform: translateX(-50%);
+		width: 0%;
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0%);
+		width: 100%;
+		opacity: 1;
 	}
 }
