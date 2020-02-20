@@ -1,5 +1,5 @@
 # source: http://localhost:8000/graphql
-# timestamp: Sun Aug 04 2019 22:35:57 GMT+0800 (GMT+08:00)
+# timestamp: Thu Feb 20 2020 23:21:07 GMT+0800 (GMT+08:00)
 
 type AuthPayload {
   access_token: String!
@@ -7,6 +7,13 @@ type AuthPayload {
   expires_in: Int!
   token_type: String!
   user: User!
+}
+
+type Comment {
+  id: ID!
+  text: String!
+  user: User!
+  task: Task!
 }
 
 input CreateTeamInput {
@@ -30,6 +37,14 @@ A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`.
 """
 scalar DateTime
 
+type File {
+  id: ID!
+  task: Task!
+  name: String!
+  type: String!
+  comment: Comment!
+}
+
 input ForgotPasswordInput {
   email: String!
 }
@@ -46,6 +61,7 @@ type Jobboard {
   teams: [TeamJobboard!]!
   active: String!
   sprints: [Sprint!]!
+  releasePlan: [ReleasePlan!]
 }
 
 type JobboardPaginator {
@@ -174,6 +190,24 @@ input RefreshTokenInput {
   refresh_token: String
 }
 
+type ReleasePlan {
+  id: ID!
+  name: String!
+  description: String!
+  release_date: DateTime
+  tag: String!
+  startDate: DateTime!
+  endDate: DateTime!
+  jobboard: Jobboard!
+}
+
+type ReleasePlanTask {
+  task: Task
+  task_id: String!
+  release_plan_id: String!
+  releaseplan: ReleasePlan
+}
+
 enum SortOrder {
   ASC
   DESC
@@ -215,6 +249,9 @@ type Task {
   taskTag: TaskTag!
   taskOrderType: TaskOrderType!
   belongsToSprint: Sprint!
+  comments: [Comment!]!
+  files: [File!]!
+  releaseplantask: ReleasePlanTask
 }
 
 type TaskOrderType {
@@ -277,13 +314,7 @@ type User {
   name: String!
   username: String!
   user_type: String!
-  UserPermissions(
-    """Limits number of fetched elements."""
-    count: Int!
-
-    """The offset from which elements are returned."""
-    page: Int
-  ): UserPermissionPaginator
+  UserPermissions: [UserPermission!]!
   email: String!
   userDetail: UserDetail
   created_at: DateTime!
@@ -313,9 +344,4 @@ type UserPermission {
   permission: Permission
   jobboard: Jobboard
   created_at: DateTime!
-}
-
-type UserPermissionPaginator {
-  paginatorInfo: PaginatorInfo!
-  data: [UserPermission!]!
 }

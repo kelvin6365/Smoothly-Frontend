@@ -9,7 +9,19 @@ import "./index.scss";
 class index extends Component {
   constructor(props) {
     super(props);
-    this.state = { leftMenuOpen: true };
+    this.state = { leftMenuOpen: true, loading: true };
+  }
+
+  componentWillMount() {
+    if (!localStorage.getItem("_token")) {
+      this.props.history.push("/login");
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      loading: false
+    });
   }
 
   openLeftMenu = () => {
@@ -19,8 +31,11 @@ class index extends Component {
   };
 
   render() {
-    const { leftMenuOpen } = this.state;
-
+    const { leftMenuOpen, loading } = this.state;
+    console.log("[Dashboard Layout]", this.props);
+    if (loading) {
+      return <div>loading...</div>;
+    }
     return (
       <div className="dashboard">
         <LeftMenu
