@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import LeftMenu from "../../feature/LeftMenu";
+import Footer from "../../feature/Footer";
 import routes from "../../Function/Router";
 
 import { Switch, Redirect } from "react-router-dom";
@@ -44,10 +45,11 @@ class index extends Component {
           openLeftMenu={this.openLeftMenu}
         />
         <div className={leftMenuOpen ? "body open" : "body close"}>
-          <div>top bar</div>
+          {/* <div>top bar</div> */}
           <div className="content animated fadeInLeft">
             <Switch>{renderRoutes(routes)}</Switch>
           </div>
+          <Footer t={this.props.t} />
         </div>
       </div>
     );

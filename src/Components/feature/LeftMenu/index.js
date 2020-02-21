@@ -83,13 +83,27 @@ class index extends Component {
             }
             pointing="top left"
             options={[
-              { key: "user", text: "Account", icon: "user" },
-              { key: "settings", text: "Settings", icon: "settings" },
+              {
+                key: "user",
+                text: "Account",
+                icon: "user",
+                selected: false,
+                className: "add"
+              },
+              {
+                key: "settings",
+                text: "Settings",
+                icon: "settings",
+                selected: false,
+                className: "add"
+              },
               {
                 key: "sign-out",
                 text: "Sign Out",
                 icon: "sign out",
-                onClick: this.logout
+                onClick: this.logout,
+                selected: false,
+                className: "add"
               }
             ]}
           />

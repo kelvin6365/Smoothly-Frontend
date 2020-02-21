@@ -19,13 +19,13 @@ class index extends Component {
     console.log("[App] Page:", matchedRoutes);
 
     return (
-      <div id="dashboard">
+      <>
         <div className="page-header">
           <Breadcrumb icon="right angle" sections={sections(matchedRoutes)} />
         </div>
 
         <div className="page-content">123</div>
-      </div>
+      </>
     );
   }
 }

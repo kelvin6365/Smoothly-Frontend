@@ -29,7 +29,7 @@ class App extends Component {
 
   render() {
     const { Loading, auth } = this.state;
-    if (Loading) return "Loading";
+    // if (Loading) return "Loading";
     return (
       <Suspense fallback={<div>Loading</div>}>
         <Translation>
