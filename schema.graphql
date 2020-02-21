@@ -1,5 +1,5 @@
 # source: http://localhost:8000/graphql
-# timestamp: Thu Feb 20 2020 23:21:07 GMT+0800 (GMT+08:00)
+# timestamp: Fri Feb 21 2020 18:19:06 GMT+0800 (GMT+08:00)
 
 type AuthPayload {
   access_token: String!
@@ -218,8 +218,8 @@ type Sprint {
   jobboard: Jobboard
   name: String!
   sprintType: SprintType!
-  startDate: DateTime
-  endDate: DateTime
+  start_date: DateTime
+  end_date: DateTime
   tasks(
     """Limits number of fetched elements."""
     count: Int!
@@ -293,7 +293,6 @@ type TeamJobboard {
   jobboard_id: ID!
   belongsToJobboard: Jobboard
   team_id: ID!
-  TeamDetail: Team
 }
 
 type TeamPaginator {

@@ -1,0 +1,25 @@
+#jobs.page-content {
+  .content-body {
+    .ui.items {
+      margin-top: 0;
+      .item {
+        margin-top: 0;
+        border: 1px solid #0000001a;
+        padding: 10px;
+        border-radius: 3px;
+        &:hover {
+          background-color: rgba(183, 217, 255, 0.507);
+        }
+        .ui.small.image {
+          width: 170px;
+          cursor: pointer;
+        }
+        .content {
+          .header {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

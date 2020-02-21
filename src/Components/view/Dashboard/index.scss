@@ -112,6 +112,22 @@
       }
       .page-content {
         margin: 0 5px;
+        .content-head {
+          .title {
+            font-size: 18px;
+            font-weight: 600;
+          }
+        }
+        .content-body {
+          .filter-row {
+            .fields {
+              justify-content: flex-end;
+              .ui.toggle.checkbox label:before {
+                background: rgba(0, 0, 0, 0.301);
+              }
+            }
+          }
+        }
       }
     }
     &.open {

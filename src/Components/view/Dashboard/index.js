@@ -47,7 +47,7 @@ class index extends Component {
         <div className={leftMenuOpen ? "body open" : "body close"}>
           {/* <div>top bar</div> */}
           <div className="content animated fadeInLeft">
-            <Switch>{renderRoutes(routes)}</Switch>
+            <Switch>{renderRoutes(routes, { ...this.props })}</Switch>
           </div>
           <Footer t={this.props.t} />
         </div>
