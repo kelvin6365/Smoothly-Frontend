@@ -9,14 +9,14 @@ const routes = [
     breadcrumbName: "Dashboard"
   },
   {
-    path: "/m/jobs",
+    path: "/m/boards",
     component: Jobs,
-    breadcrumbName: "Jobs/Tasks",
+    breadcrumbName: "Team Boards",
     routes: [
       {
-        path: "/m/jobs/test",
+        path: "/m/boards/:board_id",
         component: Jobs,
-        breadcrumbName: "Test"
+        breadcrumbName: "Jobs/Tasks"
       }
     ]
   },

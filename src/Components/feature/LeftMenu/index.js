@@ -58,9 +58,9 @@ class index extends Component {
             <Icon name="user" />
             <span className="menu_item">{t("Dashboard")}</span>
           </NavLink>
-          <NavLink className="item" to="/m/jobs">
+          <NavLink className="item" to="/m/boards">
             <Icon name="lock" />
-            <span className="menu_item">jobslist</span>
+            <span className="menu_item">{t("Team Boards")}</span>
           </NavLink>
         </div>
         <div className="footer">
