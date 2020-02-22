@@ -27,6 +27,7 @@ const JobsTeamDataQuery = graphql`
       name
       TeamJobboards {
         id
+        jobboard_id
         belongsToJobboard {
           releasePlan {
             description
@@ -67,9 +68,6 @@ const JobsTeamDataQuery = graphql`
     }
   }
 `;
-const paragraph = (
-  <Image src="https://react.semantic-ui.com/images/wireframe/short-paragraph.png" />
-);
 
 class index extends Component {
   constructor(props) {
@@ -90,16 +88,18 @@ class index extends Component {
       TeamId: JSON.parse(localStorage.getItem("_user_data")).userDetail.team_id,
       Count: 20
     };
-    fetchQuery(Environment, JobsTeamDataQuery, variables).then(data => {
-      console.log("CallBack", data);
-      if (data.team != null && data.team != "") {
-        this.setState({
-          teamData: data.team.name,
-          jobBoards: data.team.TeamJobboards,
-          loading: false
-        });
+    fetchQuery(Environment, JobsTeamDataQuery, variables).then(
+      (data, errors) => {
+        console.log("CallBack", data, errors);
+        if (data.team != null && data.team != "") {
+          this.setState({
+            teamData: data.team.name,
+            jobBoards: data.team.TeamJobboards,
+            loading: false
+          });
+        }
       }
-    });
+    );
   };
 
   renderSprintTypeLabel = obj => {
@@ -108,10 +108,10 @@ class index extends Component {
     var now = new Date();
     // now.setHours(0, 0, 0, 0);
     obj.map(sprint => {
-      console.log(new Date(sprint.start_date) < now);
+      //  console.log(new Date(sprint.start_date) < now);
       if (new Date(sprint.start_date) < now) {
         if (typeof sprint.end_date === "string") {
-          console.log(new Date(sprint.end_date), now);
+          //  console.log(new Date(sprint.end_date), now);
           if (new Date(sprint.end_date) > now) {
             if (sprintTypes.indexOf(sprint.sprintType.name) == -1) {
               sprintTypes.push(sprint.sprintType.name);
@@ -124,7 +124,7 @@ class index extends Component {
         }
       }
     });
-    console.log(typeCount);
+    // console.log(typeCount);
     return sprintTypes.map((tpye, id) => {
       return (
         <Label key={id} className={`sprint-type ${TypeColor(tpye)}`}>
@@ -145,7 +145,7 @@ class index extends Component {
       textFilter
     } = this.state;
     const { t } = this.props;
-    console.log("[App] Page:", matchedRoutes, this.props);
+    console.log("[Team Boards] Page:", matchedRoutes, this.props);
     return (
       <>
         <div className="page-header" id="jobs">
@@ -211,7 +211,16 @@ class index extends Component {
                                 {obj.belongsToJobboard.description}
                               </Item.Description>
                               <Item.Extra>
-                                <Button floated="right">{t("Enter")}</Button>
+                                <Button
+                                  floated="right"
+                                  onClick={() =>
+                                    this.props.history.push(
+                                      "/m/boards/" + obj.jobboard_id
+                                    )
+                                  }
+                                >
+                                  {t("Enter")}
+                                </Button>
                                 {obj.belongsToJobboard.sprints.length != 0 &&
                                   this.renderSprintTypeLabel(
                                     obj.belongsToJobboard.sprints

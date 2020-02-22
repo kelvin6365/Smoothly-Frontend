@@ -1,9 +1,8 @@
 import React, { Component, Suspense } from "react";
 import "./App.css";
-import LoginPage from "./Components/view/LoginPage";
-import Dashboard from "./Components/view/Dashboard";
-import { Switch, Route, Redirect } from "react-router-dom";
+import routes from "./Components/Function/Router";
 import { Translation } from "react-i18next";
+import { renderRoutes } from "react-router-config";
 
 class App extends Component {
   constructor(props) {
@@ -37,25 +36,13 @@ class App extends Component {
             return (
               <div className="App">
                 {/* {auth ? ( */}
-                <Switch>
-                  <Route
-                    exact
-                    path="/login"
-                    render={props => (
-                      <LoginPage
-                        {...props}
-                        login={this.login}
-                        t={t}
-                        i18n={i18n}
-                      />
-                    )}
-                  />
-                  <Route
-                    path="/"
-                    render={props => <Dashboard {...props} t={t} i18n={i18n} />}
-                  />
-                  <Redirect to="/" />
-                </Switch>
+                {renderRoutes(routes, {
+                  ...this.props,
+                  t: t,
+                  i18n: i18n,
+                  login: this.login
+                })}
+
                 {/* ) : (
                   <Switch>
                    

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 8403cce5053ad0ec62ee9452df1e11a0
+ * @relayHash 74d23989b333b9c753bb12f4c5de4ba4
  */
 
 /* eslint-disable */
@@ -18,6 +18,7 @@ export type JobsTeamDataQueryResponse = {|
     +name: string,
     +TeamJobboards: $ReadOnlyArray<{|
       +id: string,
+      +jobboard_id: string,
       +belongsToJobboard: ?{|
         +releasePlan: ?$ReadOnlyArray<{|
           +description: string,
@@ -73,6 +74,7 @@ query JobsTeamDataQuery(
     name
     TeamJobboards {
       id
+      jobboard_id
       belongsToJobboard {
         releasePlan {
           description
@@ -164,49 +166,56 @@ v3 = {
 v4 = {
   "kind": "ScalarField",
   "alias": null,
+  "name": "jobboard_id",
+  "args": null,
+  "storageKey": null
+},
+v5 = {
+  "kind": "ScalarField",
+  "alias": null,
   "name": "description",
   "args": null,
   "storageKey": null
 },
-v5 = [
+v6 = [
   {
     "kind": "Variable",
     "name": "count",
     "variableName": "Count"
   }
 ],
-v6 = [
+v7 = [
   (v2/*: any*/)
 ],
-v7 = {
+v8 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "username",
   "args": null,
   "storageKey": null
 },
-v8 = {
+v9 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "start_date",
   "args": null,
   "storageKey": null
 },
-v9 = {
+v10 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "end_date",
   "args": null,
   "storageKey": null
 },
-v10 = {
+v11 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "active",
   "args": null,
   "storageKey": null
 },
-v11 = [
+v12 = [
   (v2/*: any*/),
   (v3/*: any*/)
 ];
@@ -239,6 +248,7 @@ return {
             "plural": true,
             "selections": [
               (v3/*: any*/),
+              (v4/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -257,7 +267,7 @@ return {
                     "concreteType": "ReleasePlan",
                     "plural": true,
                     "selections": [
-                      (v4/*: any*/),
+                      (v5/*: any*/),
                       (v2/*: any*/)
                     ]
                   },
@@ -275,7 +285,7 @@ return {
                         "alias": null,
                         "name": "tasks",
                         "storageKey": null,
-                        "args": (v5/*: any*/),
+                        "args": (v6/*: any*/),
                         "concreteType": "TaskPaginator",
                         "plural": false,
                         "selections": [
@@ -296,7 +306,7 @@ return {
                                 "args": null,
                                 "concreteType": "TaskTag",
                                 "plural": false,
-                                "selections": (v6/*: any*/)
+                                "selections": (v7/*: any*/)
                               },
                               {
                                 "kind": "LinkedField",
@@ -306,7 +316,7 @@ return {
                                 "args": null,
                                 "concreteType": "TaskType",
                                 "plural": false,
-                                "selections": (v6/*: any*/)
+                                "selections": (v7/*: any*/)
                               },
                               {
                                 "kind": "LinkedField",
@@ -316,7 +326,7 @@ return {
                                 "args": null,
                                 "concreteType": "TaskState",
                                 "plural": false,
-                                "selections": (v6/*: any*/)
+                                "selections": (v7/*: any*/)
                               },
                               {
                                 "kind": "LinkedField",
@@ -326,7 +336,7 @@ return {
                                 "args": null,
                                 "concreteType": "TaskOrderType",
                                 "plural": false,
-                                "selections": (v6/*: any*/)
+                                "selections": (v7/*: any*/)
                               },
                               {
                                 "kind": "LinkedField",
@@ -337,7 +347,7 @@ return {
                                 "concreteType": "User",
                                 "plural": false,
                                 "selections": [
-                                  (v7/*: any*/),
+                                  (v8/*: any*/),
                                   (v2/*: any*/)
                                 ]
                               }
@@ -353,15 +363,15 @@ return {
                         "args": null,
                         "concreteType": "SprintType",
                         "plural": false,
-                        "selections": (v6/*: any*/)
+                        "selections": (v7/*: any*/)
                       },
-                      (v8/*: any*/),
-                      (v9/*: any*/)
+                      (v9/*: any*/),
+                      (v10/*: any*/)
                     ]
                   },
                   (v2/*: any*/),
-                  (v4/*: any*/),
-                  (v10/*: any*/)
+                  (v5/*: any*/),
+                  (v11/*: any*/)
                 ]
               }
             ]
@@ -395,6 +405,7 @@ return {
             "plural": true,
             "selections": [
               (v3/*: any*/),
+              (v4/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -413,7 +424,7 @@ return {
                     "concreteType": "ReleasePlan",
                     "plural": true,
                     "selections": [
-                      (v4/*: any*/),
+                      (v5/*: any*/),
                       (v2/*: any*/),
                       (v3/*: any*/)
                     ]
@@ -432,7 +443,7 @@ return {
                         "alias": null,
                         "name": "tasks",
                         "storageKey": null,
-                        "args": (v5/*: any*/),
+                        "args": (v6/*: any*/),
                         "concreteType": "TaskPaginator",
                         "plural": false,
                         "selections": [
@@ -453,7 +464,7 @@ return {
                                 "args": null,
                                 "concreteType": "TaskTag",
                                 "plural": false,
-                                "selections": (v11/*: any*/)
+                                "selections": (v12/*: any*/)
                               },
                               {
                                 "kind": "LinkedField",
@@ -463,7 +474,7 @@ return {
                                 "args": null,
                                 "concreteType": "TaskType",
                                 "plural": false,
-                                "selections": (v11/*: any*/)
+                                "selections": (v12/*: any*/)
                               },
                               {
                                 "kind": "LinkedField",
@@ -473,7 +484,7 @@ return {
                                 "args": null,
                                 "concreteType": "TaskState",
                                 "plural": false,
-                                "selections": (v11/*: any*/)
+                                "selections": (v12/*: any*/)
                               },
                               {
                                 "kind": "LinkedField",
@@ -483,7 +494,7 @@ return {
                                 "args": null,
                                 "concreteType": "TaskOrderType",
                                 "plural": false,
-                                "selections": (v11/*: any*/)
+                                "selections": (v12/*: any*/)
                               },
                               {
                                 "kind": "LinkedField",
@@ -494,7 +505,7 @@ return {
                                 "concreteType": "User",
                                 "plural": false,
                                 "selections": [
-                                  (v7/*: any*/),
+                                  (v8/*: any*/),
                                   (v2/*: any*/),
                                   (v3/*: any*/)
                                 ]
@@ -512,16 +523,16 @@ return {
                         "args": null,
                         "concreteType": "SprintType",
                         "plural": false,
-                        "selections": (v11/*: any*/)
+                        "selections": (v12/*: any*/)
                       },
-                      (v8/*: any*/),
                       (v9/*: any*/),
+                      (v10/*: any*/),
                       (v3/*: any*/)
                     ]
                   },
                   (v2/*: any*/),
-                  (v4/*: any*/),
-                  (v10/*: any*/),
+                  (v5/*: any*/),
+                  (v11/*: any*/),
                   (v3/*: any*/)
                 ]
               }
@@ -536,11 +547,11 @@ return {
     "operationKind": "query",
     "name": "JobsTeamDataQuery",
     "id": null,
-    "text": "query JobsTeamDataQuery(\n  $TeamId: ID!\n  $Count: Int!\n) {\n  team(id: $TeamId) {\n    name\n    TeamJobboards {\n      id\n      belongsToJobboard {\n        releasePlan {\n          description\n          name\n          id\n        }\n        sprints {\n          tasks(count: $Count) {\n            data {\n              taskTag {\n                name\n                id\n              }\n              taskType {\n                name\n                id\n              }\n              taskState {\n                name\n                id\n              }\n              taskOrderType {\n                name\n                id\n              }\n              taskHoldByUserInfo {\n                username\n                name\n                id\n              }\n              id\n            }\n          }\n          sprintType {\n            name\n            id\n          }\n          start_date\n          end_date\n          id\n        }\n        name\n        description\n        active\n        id\n      }\n    }\n    id\n  }\n}\n",
+    "text": "query JobsTeamDataQuery(\n  $TeamId: ID!\n  $Count: Int!\n) {\n  team(id: $TeamId) {\n    name\n    TeamJobboards {\n      id\n      jobboard_id\n      belongsToJobboard {\n        releasePlan {\n          description\n          name\n          id\n        }\n        sprints {\n          tasks(count: $Count) {\n            data {\n              taskTag {\n                name\n                id\n              }\n              taskType {\n                name\n                id\n              }\n              taskState {\n                name\n                id\n              }\n              taskOrderType {\n                name\n                id\n              }\n              taskHoldByUserInfo {\n                username\n                name\n                id\n              }\n              id\n            }\n          }\n          sprintType {\n            name\n            id\n          }\n          start_date\n          end_date\n          id\n        }\n        name\n        description\n        active\n        id\n      }\n    }\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '500f65d07b4ec7d019430345546b620e';
+(node/*: any*/).hash = 'a5ff542f4b6e341b608e859698778826';
 module.exports = node;

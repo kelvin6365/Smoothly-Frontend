@@ -33,6 +33,7 @@ class index extends Component {
 
   render() {
     const { leftMenuOpen, loading } = this.state;
+    const { route } = this.props;
     console.log("[Dashboard Layout]", this.props);
     if (loading) {
       return <div>loading...</div>;
@@ -47,7 +48,7 @@ class index extends Component {
         <div className={leftMenuOpen ? "body open" : "body close"}>
           {/* <div>top bar</div> */}
           <div className="content animated fadeInLeft">
-            <Switch>{renderRoutes(routes, { ...this.props })}</Switch>
+            {renderRoutes(route.routes, { ...this.props })}
           </div>
           <Footer t={this.props.t} />
         </div>

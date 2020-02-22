@@ -1,22 +1,53 @@
 import React from "react";
-import Dashboard from "../view/Dashboard/Home";
-import Jobs from "../view/Dashboard/Jobs";
+import LoginPage from "../view/LoginPage";
+import Dashboard from "../view/Dashboard";
+import Home from "../view/Dashboard/Home";
+import Boards from "../view/Dashboard/Boards";
+import TeamBoards from "../view/Dashboard/TeamBoards";
+import ViewBoard from "../view/Dashboard/TeamBoards/ViewBoard";
 import { Redirect } from "react-router-dom";
 const routes = [
   {
-    path: "/m/dashboard",
-    component: Dashboard,
-    breadcrumbName: "Dashboard"
+    exact: true,
+    path: "/login",
+    component: LoginPage
   },
   {
-    path: "/m/boards",
-    component: Jobs,
-    breadcrumbName: "Team Boards",
+    path: "/m",
+    component: Dashboard,
+    breadcrumbName: "1",
     routes: [
       {
-        path: "/m/boards/:board_id",
-        component: Jobs,
-        breadcrumbName: "Jobs/Tasks"
+        path: "/m/dashboard",
+        component: Home,
+        breadcrumbName: "Dashboard"
+      },
+      {
+        path: "/m/boards",
+        component: Boards,
+        breadcrumbName: "Team Boards",
+        routes: [
+          {
+            path: "/m/boards/all",
+            component: TeamBoards,
+            breadcrumbName: "All",
+            exact: true
+          },
+          {
+            path: "/m/boards/:board_id",
+            component: ViewBoard,
+            breadcrumbName: null
+          },
+          {
+            path: "*",
+            render: () => <Redirect to={"/m/boards/all"} />
+          }
+        ]
+      },
+
+      {
+        path: "*",
+        render: () => <Redirect to={"/m/dashboard"} />
       }
     ]
   },
