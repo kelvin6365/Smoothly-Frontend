@@ -1,5 +1,5 @@
 # source: http://localhost:8000/graphql
-# timestamp: Fri Feb 21 2020 18:19:06 GMT+0800 (GMT+08:00)
+# timestamp: Sun Feb 23 2020 22:37:39 GMT+0800 (GMT+08:00)
 
 type AuthPayload {
   access_token: String!
@@ -7,6 +7,22 @@ type AuthPayload {
   expires_in: Int!
   token_type: String!
   user: User!
+}
+
+type backupSprint {
+  id: ID!
+  jobboard: Jobboard
+  name: String!
+  sprintType: SprintType!
+  start_date: DateTime
+  end_date: DateTime
+  tasks(
+    """Limits number of fetched elements."""
+    count: Int!
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): TaskPaginator
 }
 
 type Comment {
@@ -184,6 +200,7 @@ type Query {
   UserPermission(user_id: ID): UserPermission
   team(id: ID): Team
   sprint(id: ID): Sprint
+  jobboard(jobboard_id: ID!, team_id: ID!): TeamJobboard
 }
 
 input RefreshTokenInput {
@@ -220,17 +237,12 @@ type Sprint {
   sprintType: SprintType!
   start_date: DateTime
   end_date: DateTime
-  tasks(
-    """Limits number of fetched elements."""
-    count: Int!
-
-    """The offset from which elements are returned."""
-    page: Int
-  ): TaskPaginator
+  tasks: [Task!]!
 }
 
 type SprintType {
   id: ID!
+  DisplayOrder: String!
   name: String!
 }
 
@@ -266,6 +278,7 @@ type TaskPaginator {
 
 type TaskState {
   id: ID!
+  DisplayOrder: String!
   name: String!
 }
 

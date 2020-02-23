@@ -3,8 +3,8 @@ import LoginPage from "../view/LoginPage";
 import Dashboard from "../view/Dashboard";
 import Home from "../view/Dashboard/Home";
 import Boards from "../view/Dashboard/Boards";
-import TeamBoards from "../view/Dashboard/TeamBoards";
-import ViewBoard from "../view/Dashboard/TeamBoards/ViewBoard";
+import TeamBoards from "../view/Dashboard/Boards/TeamBoards";
+import ViewBoard from "../view/Dashboard/Boards/TeamBoards/ViewBoard";
 import { Redirect } from "react-router-dom";
 const routes = [
   {

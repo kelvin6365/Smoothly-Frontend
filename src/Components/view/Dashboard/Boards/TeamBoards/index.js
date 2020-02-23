@@ -10,19 +10,19 @@ import {
   Input
 } from "semantic-ui-react";
 import { fetchQuery, graphql } from "relay-runtime";
-import Environment from "../../../../Environment";
+import Environment from "../../../../../Environment";
 import { matchRoutes } from "react-router-config";
-import routes from "../../../Function/Router";
-import sections from "../../../Function/MatchBreadcrumb";
-import TypeColor from "../../../Function/MatchSprintTypeLabelColor";
+import routes from "../../../../Function/Router";
+import sections from "../../../../Function/MatchBreadcrumb";
+import TypeColor from "../../../../Function/MatchSprintTypeLabelColor";
 import "./index.scss";
 // const sections = [
 // 	{ key: 'Dashboard', content: 'Dashboard', as: NavLink, to: '/dashboard' },
 // 	{ key: 'ForTest', content: 'ForTest', active: true }
 // ];
 
-const JobsTeamDataQuery = graphql`
-  query JobsTeamDataQuery($TeamId: ID!, $Count: Int!) {
+const TeamBoardsDataQuery = graphql`
+  query TeamBoardsDataQuery($TeamId: ID!) {
     team(id: $TeamId) {
       name
       TeamJobboards {
@@ -34,26 +34,6 @@ const JobsTeamDataQuery = graphql`
             name
           }
           sprints {
-            tasks(count: $Count) {
-              data {
-                taskTag {
-                  name
-                }
-                taskType {
-                  name
-                }
-                taskState {
-                  name
-                }
-                taskOrderType {
-                  name
-                }
-                taskHoldByUserInfo {
-                  username
-                  name
-                }
-              }
-            }
             sprintType {
               name
             }
@@ -85,10 +65,9 @@ class index extends Component {
 
   getTeamData = () => {
     var variables = {
-      TeamId: JSON.parse(localStorage.getItem("_user_data")).userDetail.team_id,
-      Count: 20
+      TeamId: JSON.parse(localStorage.getItem("_user_data")).userDetail.team_id
     };
-    fetchQuery(Environment, JobsTeamDataQuery, variables).then(
+    fetchQuery(Environment, TeamBoardsDataQuery, variables).then(
       (data, errors) => {
         console.log("CallBack", data, errors);
         if (data.team != null && data.team != "") {
